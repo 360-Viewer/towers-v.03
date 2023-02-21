@@ -24,21 +24,23 @@ function Panorama({ psvRef, pano, panoData, setIsLoaded }) {
   const { panoChanged } = appContext;
 
   return (
-    <div className={`${styles.container} ${panoChanged ? styles.blurred : ""}`}>
-      <ReactPhotoSphereViewer
-        ref={psvRef}
-        loadingImg={null}
-        loadingTxt={null}
-        width={"100%"}
-        height={"100%"}
-        src={pano}
-        defaultZoomLvl={10}
-        navbar={false}
-        onReady={() => setIsLoaded(true)}
-        panoData={panoData}
-      ></ReactPhotoSphereViewer>
+    <>
+      <div className={`${styles.container} ${panoChanged ? styles.blurred : ""}`}>
+        <ReactPhotoSphereViewer
+          ref={psvRef}
+          loadingImg={null}
+          loadingTxt={null}
+          width={"100%"}
+          height={"100%"}
+          src={pano}
+          defaultZoomLvl={10}
+          navbar={false}
+          onReady={() => setIsLoaded(true)}
+          panoData={panoData}
+        ></ReactPhotoSphereViewer>
+      </div>
       <Controls psvRef={psvRef} />
-    </div>
+    </>
   )
 }
 
