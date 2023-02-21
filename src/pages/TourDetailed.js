@@ -18,7 +18,14 @@ function TourDetailed() {
   const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
-    if (panos[block] && panos[block][level] && panos[block][level]["Day"]) {
+    if (block === "test" && level === "test") {
+      setCurrentPanoProps({
+        block: "test",
+        level: "test",
+        time: "Day"
+      });
+    }
+    else if (panos[block] && panos[block][level] && panos[block][level]["Day"]) {
       setCurrentPanoProps({
         block: block,
         level: level,

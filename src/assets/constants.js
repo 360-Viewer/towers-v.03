@@ -8,6 +8,22 @@ export const panos = {
   },
   "first-pano-data": null,
   "blocks": ["A-Block", "B-Block", "C-Block"],
+  "test": {
+    "test": {
+      "Day": require("../assets/panos/test.jpg"),
+      "panoData": {
+        fullWidth: 6200,
+        fullHeight: 3100,
+        croppedWidth: 3100,
+        croppedHeight: 3100,
+        croppedX: 1550,
+        croppedY: 0,
+        poseHeading: 0, // 0 to 360
+        posePitch: 0, // -90 to 90
+        poseRoll: 0, // -180 to 180
+      },
+    }
+  },
   "A-Block": {
     "L100": {
       "Day": require("../assets/panos/day/A-100.jpg"),
