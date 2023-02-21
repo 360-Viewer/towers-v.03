@@ -14,12 +14,12 @@ function Tour() {
 
   return (
     <div className={styles.tour}>
-      {!isLoaded &&
+      {/* {!isLoaded &&
         <div className={styles.loadingScreen}>
           <img src={home_img} className={styles.home} />
-          {/* <img src={loader} className={styles.loader} style={{ top: "50%", left: "50%", position: "absolute" }} /> */}
         </div>
-      }
+      } */}
+
       <div style={{ opacity: isLoaded ? 1 : 0.5 }}>
         <Panorama
           psvRef={psvRef}
