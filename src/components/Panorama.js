@@ -4,14 +4,18 @@ import { AppContext } from "../App";
 import Controls from "./Controls";
 import styles from "./Panorama.module.css"
 
-export const loadPanorama = (psvRef, pano, panoData, setPanoChanged) => {
+export function loadPanorama(psvRef, pano, panoData, setPanoChanged) {
   setPanoChanged(true);
   psvRef.current.setPanorama(pano, {
-    // transition: "cubic-bezier(0.25, 0.1, 0.25, 1)",
     showLoader: false,
     panoData: panoData,
   }).then(() => {
     setPanoChanged(false);
+    psvRef.current.animate({
+      yaw: psvRef.current.getPosition().yaw + 0.1,
+      pitch: psvRef.current.getPosition().pitch,
+      speed: '0.5rpm'
+    })
   });
 }
 
