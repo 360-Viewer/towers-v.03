@@ -27,8 +27,8 @@
     cursor: default;
     pointer-events: none;
     z-index: 10;
-    animation: blur 3s normal forwards;
-    -webkit-animation: blur 3s normal forwards;
+    animation: blur 5s normal forwards;
+    -webkit-animation: blur 5s normal forwards;
 }
 
 @keyframes blur {
