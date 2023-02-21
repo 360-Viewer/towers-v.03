@@ -1,9 +1,11 @@
 import React, { useContext, useEffect, useRef, useState } from 'react';
 import Panorama, { loadPanorama } from '../components/Panorama';
-import { panos } from '../assets/constants'
+import { home_img, panos } from '../assets/constants'
 import styles from "../styles/Tour.module.css";
 import Menu from '../components/Menu';
 import { AppContext } from '../App';
+import loader from "../assets/icons/loader.svg";
+
 
 
 function Tour() {
@@ -12,13 +14,21 @@ function Tour() {
 
   return (
     <div className={styles.tour}>
-      <Panorama
-        psvRef={psvRef}
-        pano={localStorage.getItem("pano") || panos["first-pano"]}
-        panoData={localStorage.getItem("pano-data") || panos["first-pano-data"]}
-        setIsLoaded={setIsLoaded}
-      />
-      <Menu psvRef={psvRef} />
+      {!isLoaded &&
+        <div className={styles.loadingScreen}>
+          <img src={home_img} className={styles.home} />
+          {/* <img src={loader} className={styles.loader} style={{ top: "50%", left: "50%", position: "absolute" }} /> */}
+        </div>
+      }
+      <div style={{ opacity: isLoaded ? 1 : 0.5 }}>
+        <Panorama
+          psvRef={psvRef}
+          pano={localStorage.getItem("pano") || panos["first-pano"]}
+          panoData={localStorage.getItem("pano-data") || panos["first-pano-data"]}
+          setIsLoaded={setIsLoaded}
+        />
+      </div>
+      {isLoaded && <Menu psvRef={psvRef} />}
     </div>
   )
 }

@@ -1,3 +1,4 @@
+export const home_img = require("../assets/home.png");
 export const panos = {
   "first-pano": require("../assets/panos/day/A-100.jpg"),
   "first-pano-props": {
