@@ -37,7 +37,7 @@
     }
 
     to {
-        backdrop-filter: blur(3px);
+        backdrop-filter: blur(0px);
     }
 }
 
@@ -47,7 +47,7 @@
     }
 
     to {
-        -webkit-backdrop-filter: blur(3px);
+        -webkit-backdrop-filter: blur(0px);
     }
 }
 
