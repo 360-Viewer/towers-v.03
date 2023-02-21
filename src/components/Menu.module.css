@@ -11,9 +11,8 @@
     justify-content: center;
     cursor: pointer;
     border: 0;
-    background-color: rgba(60, 60, 60, 0.3);
+    background-color: transparent;
     padding: 5px;
-    margin-bottom: 5px;
 }
 @media (max-width: 768px) {
     .viewButton {
@@ -27,10 +26,6 @@
         padding: 2px;
         margin-bottom: 2px;
     }
-}
-
-.viewButton:hover {
-    background-color: rgba(116, 116, 116, 0.5);
 }
 
 .icon {

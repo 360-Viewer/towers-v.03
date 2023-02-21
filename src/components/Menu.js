@@ -3,14 +3,10 @@ import { panos } from '../assets/constants';
 import styles from "./Menu.module.css";
 import moon from "../assets/icons/moon.svg";
 import sun from "../assets/icons/sun.svg";
-import right from "../assets/icons/right.svg";
-import right_active from "../assets/icons/right-active.svg";
-import loader from "../assets/icons/loader.svg";
-import { useNavigate } from 'react-router-dom'
 import { loadPanorama } from './Panorama';
 import { AppContext } from '../App';
 
-const TimeItem = ({ psvRef, time, currentPanoProps, setCurrentPanoProps }) => {
+export const TimeItem = ({ psvRef, currentPanoProps, setCurrentPanoProps }) => {
   const appContext = useContext(AppContext);
   const { setPanoChanged } = appContext;
 
@@ -46,16 +42,6 @@ const LevelItem = ({ psvRef, level, currentPanoProps, setCurrentPanoProps }) => 
       panos[currentPanoProps.block][level][currentPanoProps.time],
       panos[currentPanoProps.block][level]["panoData"],
       setPanoChanged);
-
-    // print pano, pano-data and pano-props
-    console.log("pano: ", panos[currentPanoProps.block][level][currentPanoProps.time]);
-    console.log("pano-data: ", panos[currentPanoProps.block][level]["panoData"]);
-    console.log("pano-props: ", { ...currentPanoProps, level: level });
-
-    // save pano, pano-data and pano-props to local storage
-    // localStorage.setItem("pano", panos[currentPanoProps.block][level][currentPanoProps.time]);
-    // localStorage.setItem("pano-data", panos[currentPanoProps.block][level]["panoData"]);
-    // localStorage.setItem("pano-props", JSON.stringify({ ...currentPanoProps, level: level }));
   }
 
   return (
@@ -91,7 +77,7 @@ const BlockItem = ({ psvRef, block, currentPanoProps, setCurrentPanoProps }) => 
       className={`${styles.verticalContainerItem} ${isActive ? styles.verticalContainerItemActive : ""}`}
       onClick={handleClick}>
       <p className={`${styles.text} ${isActive ? styles.textActive : ""}`}>
-        {block}
+        {block.replace(/-/g, ' ')}
       </p>
     </button>
   )
@@ -99,19 +85,43 @@ const BlockItem = ({ psvRef, block, currentPanoProps, setCurrentPanoProps }) => 
 
 function Menu({ psvRef }) {
   const [currentPanoProps, setCurrentPanoProps] = useState(localStorage.getItem("pano-props") || panos["first-pano-props"]);
+  const [levelsHovered, setLevelsHovered] = useState(true);
+  const [blockHovered, setBlockHovered] = useState(true);
+  const [timeHovered, setTimeHovered] = useState(true);
 
-  function handleTimeClick() { }
+  useEffect(() => {
+    setTimeout(() => {
+      setLevelsHovered(false);
+      setBlockHovered(false);
+      setTimeHovered(false);
+    }, 2000);
+  }, []);
 
   return (
-    <div>
-      <div className={styles.verticalContainer} style={{ left: "12px", top: "12px" }}>
-        <TimeItem
-          psvRef={psvRef}
-          time={currentPanoProps.time}
-          currentPanoProps={currentPanoProps}
-          setCurrentPanoProps={setCurrentPanoProps}
-
-        />
+    <>
+      <div className={styles.verticalContainer}
+        onMouseEnter={() => {
+          setLevelsHovered(true);
+          setTimeHovered(true);
+        }}
+        onMouseLeave={() => {
+          setTimeout(() => {
+            setLevelsHovered(false);
+            setTimeHovered(false);
+          }, 2000);
+        }}
+        style={{
+          left: "12px", top: "12px",
+          opacity: levelsHovered || timeHovered ? 1 : 0.3,
+          transition: levelsHovered || timeHovered ? "opacity 0.5s" : "opacity 0.5s 2s",
+        }}>
+        <div className={styles.verticalContainerItem} style={{ marginBottom: "5px" }}>
+          <TimeItem
+            psvRef={psvRef}
+            currentPanoProps={currentPanoProps}
+            setCurrentPanoProps={setCurrentPanoProps}
+          />
+        </div>
         {Object.keys(panos[currentPanoProps.block]).map((level) => {
           return (
             <LevelItem
@@ -125,19 +135,30 @@ function Menu({ psvRef }) {
         })}
       </div>
       <div className={styles.verticalContainer} style={{ right: "12px", top: "12px" }}>
-        {panos["blocks"].map((block) => {
-          return (
-            <BlockItem
-              key={block}
-              psvRef={psvRef}
-              block={block}
-              currentPanoProps={currentPanoProps}
-              setCurrentPanoProps={setCurrentPanoProps}
-            />
-          );
-        })}
+        <div onMouseEnter={() => setBlockHovered(true)}
+          onMouseLeave={() => {
+            setTimeout(() => {
+              setBlockHovered(false);
+            }, 2000);
+          }}
+          style={{
+            opacity: blockHovered ? 1 : 0.3,
+            transition: blockHovered ? "opacity 0.5s" : "opacity 0.5s 2s",
+          }}>
+          {panos["blocks"].map((block) => {
+            return (
+              <BlockItem
+                key={block}
+                psvRef={psvRef}
+                block={block}
+                currentPanoProps={currentPanoProps}
+                setCurrentPanoProps={setCurrentPanoProps}
+              />
+            );
+          })}
+        </div>
       </div>
-    </div>
+    </>
   )
 }
 

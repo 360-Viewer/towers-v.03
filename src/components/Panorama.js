@@ -19,7 +19,7 @@ export function loadPanorama(psvRef, pano, panoData, setPanoChanged) {
   });
 }
 
-function Panorama({ psvRef, pano, panoData, setIsLoaded }) {
+function Panorama({ psvRef, pano, panoData, setIsLoaded, homeIconExists }) {
   const appContext = useContext(AppContext);
   const { panoChanged } = appContext;
 
@@ -39,7 +39,7 @@ function Panorama({ psvRef, pano, panoData, setIsLoaded }) {
           panoData={panoData}
         ></ReactPhotoSphereViewer>
       </div>
-      <Controls psvRef={psvRef} />
+      <Controls psvRef={psvRef} homeIconExists={homeIconExists} />
     </>
   )
 }

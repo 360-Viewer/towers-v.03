@@ -10,7 +10,7 @@ import autorotate from "../assets/icons/autorotate.svg";
 import home from "../assets/icons/home.svg";
 
 
-function Controls({ psvRef, homeExist }) {
+function Controls({ psvRef, homeIconExists }) {
   const navigate = useNavigate();
 
   const handleLeftClick = () => {
@@ -51,7 +51,7 @@ function Controls({ psvRef, homeExist }) {
   return (
     <div className={styles.controls}>
       <div className={styles.buttons}>
-        {homeExist && <button onClick={handleHomeClick}>
+        {homeIconExists && <button onClick={handleHomeClick}>
           <img src={home} />
         </button>}
         <button onClick={handleLeftClick}>
