@@ -19,7 +19,6 @@ function Tour() {
           <img src={home_img} className={styles.home} />
         </div>
       } */}
-
       <div style={{ opacity: isLoaded ? 1 : 0.5 }}>
         <Panorama
           psvRef={psvRef}
